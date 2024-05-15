@@ -26,15 +26,24 @@ app.use(express.static("tmp"));
 
 app.use("/api/events", eventsRouter);
 
-app.use((_, res) => {
-  res.status(404).json({ message: "Route not found" });
+const port = process.env.PORT || 4000;
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
-app.use((err, req, res, next) => {
-  const { status = 500, message = "Server error" } = err;
-  res.status(status).json({ message });
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
+// app.use((_, res) => {
+//   res.status(404).json({ message: "Route not found" });
+// });
 
-app.listen(3000, () => {
-  console.log("Server is running. Use our API on port: 3000");
-});
+// app.use((err, req, res, next) => {
+//   const { status = 500, message = "Server error" } = err;
+//   res.status(status).json({ message });
+// });
+
+// app.listen(3000, () => {
+//   console.log("Server is running. Use our API on port: 3000");
+// });
